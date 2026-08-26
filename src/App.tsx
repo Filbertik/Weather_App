@@ -37,7 +37,7 @@ function App() {
     <div>
       <SearchBar value={city} onChange={setCity} onSearch={searchWeather} />
 
-      {weather && (
+      {/* {weather && (
         <div>
           <h1>{weather.name}</h1>
 
@@ -45,7 +45,7 @@ function App() {
 
           <p>{weather.weather[0].description}</p>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
