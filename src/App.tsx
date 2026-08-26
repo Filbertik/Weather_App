@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
+
 import SearchBar from "./components/SearchBar";
-import { getCurrentWeather } from "./services/weatherApi";
-import type { CurrentWeather } from "./types/weather";
 import CurrentWeather from "./components/CurrentWeather";
+
+import { getCurrentWeather } from "./services/weatherApi";
+
+import type { CurrentWeather as CurrentWeatherType } from "./types/weather";
 
 function App() {
   const [city, setCity] = useState("");
-  const [weather, setWeather] = useState<CurrentWeather | null>(null);
+  const [weather, setWeather] = useState<CurrentWeatherType | null>(null);
 
   const searchWeather = async () => {
     if (!city.trim()) return;
@@ -39,16 +42,6 @@ function App() {
       <SearchBar value={city} onChange={setCity} onSearch={searchWeather} />
 
       {weather && <CurrentWeather weather={weather} />}
-
-      {/* {weather && (
-        <div>
-          <h1>{weather.name}</h1>
-
-          <p>{weather.main.temp}°C</p>
-
-          <p>{weather.weather[0].description}</p>
-        </div>
-      )} */}
     </div>
   );
 }
