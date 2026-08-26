@@ -1,6 +1,7 @@
 import { Droplets, Eye, Gauge, Wind } from "lucide-react";
 
 import type { CurrentWeather as CurrentWeatherType } from "../types/weather";
+import "./CurrentWeather.css";
 
 interface CurrentWeatherProps {
   weather: CurrentWeatherType;
