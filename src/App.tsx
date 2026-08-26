@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar";
 import { getCurrentWeather } from "./services/weatherApi";
 import type { CurrentWeather } from "./types/weather";
+import CurrentWeather from "./components/CurrentWeather";
 
 function App() {
   const [city, setCity] = useState("");
@@ -36,6 +37,8 @@ function App() {
   return (
     <div>
       <SearchBar value={city} onChange={setCity} onSearch={searchWeather} />
+
+      {weather && <CurrentWeather weather={weather} />}
 
       {/* {weather && (
         <div>
