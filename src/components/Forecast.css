@@ -1,0 +1,158 @@
+.forecast {
+  width: 100%;
+  max-width: 900px;
+
+  margin: 24px auto 0;
+  padding: 28px;
+
+  border-radius: 24px;
+
+  background: #ffffff;
+
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+}
+
+.forecast__header {
+  margin-bottom: 24px;
+}
+
+.forecast__header h2 {
+  margin: 0 0 6px;
+
+  font-size: 24px;
+  font-weight: 600;
+
+  color: #0f172a;
+}
+
+.forecast__header p {
+  margin: 0;
+
+  font-size: 14px;
+
+  color: #64748b;
+}
+
+.forecast__list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+  gap: 12px;
+}
+
+.forecast-card {
+  min-width: 0;
+
+  padding: 18px 12px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+
+  background: #f8fafc;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.forecast-card:hover {
+  transform: translateY(-4px);
+
+  background: #ffffff;
+
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+.forecast-card__date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 3px;
+
+  text-align: center;
+}
+
+.forecast-card__date strong {
+  font-size: 15px;
+  font-weight: 600;
+
+  text-transform: capitalize;
+
+  color: #0f172a;
+}
+
+.forecast-card__date span {
+  font-size: 12px;
+
+  color: #94a3b8;
+}
+
+.forecast-card__icon {
+  width: 70px;
+  height: 70px;
+
+  margin: 10px 0;
+}
+
+.forecast-card__temperature {
+  font-size: 24px;
+  font-weight: 600;
+
+  color: #0f172a;
+}
+
+.forecast-card__description {
+  min-height: 36px;
+
+  margin: 6px 0 10px;
+
+  font-size: 12px;
+  line-height: 1.4;
+
+  text-align: center;
+  text-transform: capitalize;
+
+  color: #64748b;
+}
+
+.forecast-card__humidity {
+  padding-top: 8px;
+
+  border-top: 1px solid #e2e8f0;
+
+  width: 100%;
+
+  font-size: 12px;
+
+  text-align: center;
+
+  color: #64748b;
+}
+
+@media (max-width: 800px) {
+  .forecast__list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .forecast {
+    padding: 20px;
+  }
+
+  .forecast__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .forecast__list {
+    grid-template-columns: 1fr;
+  }
+}
