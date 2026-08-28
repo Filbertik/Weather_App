@@ -6,9 +6,14 @@ import Loader from "./components/Loader";
 import ErrorMessage from "./components/ErrorMessage";
 
 import { getCurrentWeather } from "./services/weatherApi";
+import Forecast from "./components/Forecast";
 
 import type { CurrentWeather as CurrentWeatherType } from "./types/weather";
 
+// import type {
+//   CurrentWeather as CurrentWeatherType,
+//   WeatherForecast,
+// } from "./types/weather";
 function App() {
   const [city, setCity] = useState("Kyiv");
   const [weather, setWeather] = useState<CurrentWeatherType | null>(null);
@@ -35,6 +40,7 @@ function App() {
       setLoading(false);
     }
   };
+  const [forecast, setForecast] = useState<WeatherForecast | null>(null);
 
   const searchWeather = () => {
     loadWeather(city);
