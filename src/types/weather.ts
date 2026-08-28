@@ -46,3 +46,33 @@ export interface CurrentWeather {
   timezone: number;
   sys: SystemInfo;
 }
+
+export interface ForecastItem {
+  dt: number;
+  main: {
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    humidity: number;
+  };
+  weather: WeatherCondition[];
+  wind: {
+    speed: number;
+    deg: number;
+  };
+  visibility: number;
+  pop: number;
+  dt_txt: string;
+}
+
+export interface WeatherForecast {
+  list: ForecastItem[];
+  city: {
+    id: number;
+    name: string;
+    country: string;
+    timezone: number;
+  };
+}
