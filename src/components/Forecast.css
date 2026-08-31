@@ -13,6 +13,10 @@
 }
 
 .forecast__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   margin-bottom: 24px;
 }
 
@@ -35,6 +39,7 @@
 
 .forecast__list {
   display: grid;
+
   grid-template-columns: repeat(5, 1fr);
 
   gap: 12px;
@@ -61,11 +66,11 @@
 }
 
 .forecast-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
 
   background: #ffffff;
 
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 12px 25px rgba(15, 23, 42, 0.1);
 }
 
 .forecast-card__date {
@@ -94,23 +99,16 @@
 }
 
 .forecast-card__icon {
-  width: 70px;
-  height: 70px;
+  width: 76px;
+  height: 76px;
 
-  margin: 10px 0;
-}
-
-.forecast-card__temperature {
-  font-size: 24px;
-  font-weight: 600;
-
-  color: #0f172a;
+  margin: 8px 0 4px;
 }
 
 .forecast-card__description {
-  min-height: 36px;
+  min-height: 34px;
 
-  margin: 6px 0 10px;
+  margin: 0;
 
   font-size: 12px;
   line-height: 1.4;
@@ -121,21 +119,58 @@
   color: #64748b;
 }
 
-.forecast-card__humidity {
-  padding-top: 8px;
+.forecast-card__temperatures {
+  display: flex;
+  align-items: baseline;
 
-  border-top: 1px solid #e2e8f0;
+  gap: 8px;
 
+  margin-top: 14px;
+}
+
+.forecast-card__temperatures strong {
+  font-size: 25px;
+  font-weight: 600;
+
+  color: #0f172a;
+}
+
+.forecast-card__temperatures span {
+  font-size: 17px;
+
+  color: #94a3b8;
+}
+
+.forecast-card__details {
   width: 100%;
 
-  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
 
-  text-align: center;
+  margin-top: 16px;
+  padding-top: 12px;
+
+  border-top: 1px solid #e2e8f0;
+}
+
+.forecast-card__details div {
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
 
   color: #64748b;
 }
 
-@media (max-width: 800px) {
+.forecast-card__details svg {
+  flex-shrink: 0;
+}
+
+.forecast-card__details span {
+  font-size: 11px;
+}
+
+@media (max-width: 850px) {
   .forecast__list {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -151,7 +186,7 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 420px) {
   .forecast__list {
     grid-template-columns: 1fr;
   }
