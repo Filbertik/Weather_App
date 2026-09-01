@@ -5,8 +5,14 @@ import CurrentWeather from "./components/CurrentWeather";
 import Forecast from "./components/Forecast";
 import Loader from "./components/Loader";
 import ErrorMessage from "./components/ErrorMessage";
+import LocationButton from "./components/LocationButton";
 
-import { getCurrentWeather, getWeatherForecast } from "./services/weatherApi";
+import {
+  getCurrentWeather,
+  getWeatherForecast,
+  getCurrentWeatherByCoords,
+  getWeatherForecastByCoords,
+} from "./services/weatherApi";
 
 import type {
   CurrentWeather as CurrentWeatherType,
@@ -21,6 +27,8 @@ function App() {
   const [forecast, setForecast] = useState<WeatherForecast | null>(null);
 
   const [loading, setLoading] = useState(false);
+
+  const [locationLoading, setLocationLoading] = useState(false);
 
   const [error, setError] = useState("");
 
@@ -56,6 +64,68 @@ function App() {
     loadWeather(city);
   };
 
+  const getUserLocation = () => {
+    if (!navigator.geolocation) {
+      setError("Ваш браузер не підтримує визначення геолокації.");
+
+      return;
+    }
+
+    setLocationLoading(true);
+    setError("");
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+
+        try {
+          const [currentWeather, weatherForecast] = await Promise.all([
+            getCurrentWeatherByCoords(latitude, longitude),
+            getWeatherForecastByCoords(latitude, longitude),
+          ]);
+
+          setWeather(currentWeather);
+          setForecast(weatherForecast);
+
+          setCity(currentWeather.name);
+        } catch (error) {
+          console.error(error);
+
+          setWeather(null);
+          setForecast(null);
+
+          setError("Не вдалося отримати погоду для вашого місцезнаходження.");
+        } finally {
+          setLocationLoading(false);
+        }
+      },
+      (error) => {
+        console.error(error);
+
+        setLocationLoading(false);
+
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            setError(
+              "Доступ до геолокації заборонено. Дозвольте доступ до місцезнаходження у браузері.",
+            );
+            break;
+
+          case error.POSITION_UNAVAILABLE:
+            setError("Не вдалося визначити ваше місцезнаходження.");
+            break;
+
+          case error.TIMEOUT:
+            setError("Час очікування геолокації минув. Спробуйте ще раз.");
+            break;
+
+          default:
+            setError("Не вдалося отримати ваше місцезнаходження.");
+        }
+      },
+    );
+  };
+
   useEffect(() => {
     const loadDefaultWeather = async () => {
       try {
@@ -82,7 +152,11 @@ function App() {
 
   return (
     <div>
-      <SearchBar value={city} onChange={setCity} onSearch={searchWeather} />
+      <div className="search-section">
+        <SearchBar value={city} onChange={setCity} onSearch={searchWeather} />
+
+        <LocationButton onClick={getUserLocation} loading={locationLoading} />
+      </div>
 
       {loading && <Loader />}
 
