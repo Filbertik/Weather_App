@@ -11,8 +11,8 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
@@ -108,4 +108,33 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+/* seach section */
+
+.search-section {
+  width: 100%;
+  max-width: 900px;
+
+  margin: 30px auto 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.search-section form {
+  flex: 1;
+}
+
+@media (max-width: 650px) {
+  .search-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .location-button {
+    width: 100%;
+  }
 }

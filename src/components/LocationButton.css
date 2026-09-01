@@ -1,0 +1,43 @@
+.location-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 11px 16px;
+
+  border: 1px solid #dbe4f0;
+  border-radius: 12px;
+
+  background: #ffffff;
+  color: #2563eb;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.location-button:hover:not(:disabled) {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.location-button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.location-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.location-button svg {
+  flex-shrink: 0;
+}
