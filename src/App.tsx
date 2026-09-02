@@ -18,6 +18,7 @@ import type {
   CurrentWeather as CurrentWeatherType,
   WeatherForecast,
 } from "./types/weather";
+import UnitToggle, { type TemperatureUnit } from "./components/UnitToggle";
 
 function App() {
   const [city, setCity] = useState("Kyiv");
@@ -63,6 +64,7 @@ function App() {
   const searchWeather = () => {
     loadWeather(city);
   };
+  const [unit, setUnit] = useState<TemperatureUnit>("celsius");
 
   const getUserLocation = () => {
     if (!navigator.geolocation) {
@@ -156,8 +158,9 @@ function App() {
         <SearchBar value={city} onChange={setCity} onSearch={searchWeather} />
 
         <LocationButton onClick={getUserLocation} loading={locationLoading} />
-      </div>
 
+        <UnitToggle unit={unit} onChange={setUnit} />
+      </div>
       {loading && <Loader />}
 
       {!loading && error && (
@@ -166,9 +169,9 @@ function App() {
 
       {!loading && !error && weather && (
         <>
-          <CurrentWeather weather={weather} />
+          <CurrentWeather weather={weather} unit={unit} />
 
-          {forecast && <Forecast forecast={forecast.list} />}
+          {forecast && <Forecast forecast={forecast.list} unit={unit} />}
         </>
       )}
     </div>
