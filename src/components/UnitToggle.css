@@ -1,0 +1,43 @@
+.unit-toggle {
+  display: flex;
+  align-items: center;
+
+  padding: 4px;
+
+  border: 1px solid #dbe4f0;
+  border-radius: 12px;
+
+  background: #f1f5f9;
+}
+
+.unit-toggle button {
+  min-width: 44px;
+  height: 34px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+  color: #64748b;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.unit-toggle button:hover {
+  color: #2563eb;
+}
+
+.unit-toggle button.active {
+  background: #ffffff;
+  color: #2563eb;
+
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.1);
+}
