@@ -135,6 +135,12 @@ function App() {
   };
 
   useEffect(() => {
+    const savedUnit = getSavedTemperatureUnit();
+
+    setUnit(savedUnit);
+  }, []);
+
+  useEffect(() => {
     const loadDefaultWeather = async () => {
       try {
         setLoading(true);
@@ -165,7 +171,14 @@ function App() {
 
         <LocationButton onClick={getUserLocation} loading={locationLoading} />
 
-        <UnitToggle unit={unit} onChange={setUnit} />
+        {/* <UnitToggle unit={unit} onChange={setUnit} /> */}
+        <UnitToggle
+          unit={unit}
+          onChange={(newUnit) => {
+            setUnit(newUnit);
+            saveTemperatureUnit(newUnit);
+          }}
+        />
       </div>
       {loading && <Loader />}
 
