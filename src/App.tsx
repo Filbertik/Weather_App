@@ -6,6 +6,7 @@ import Forecast from "./components/Forecast";
 import Loader from "./components/Loader";
 import ErrorMessage from "./components/ErrorMessage";
 import LocationButton from "./components/LocationButton";
+import UnitToggle, { type TemperatureUnit } from "./components/UnitToggle";
 
 import {
   getCurrentWeather,
@@ -18,7 +19,6 @@ import type {
   CurrentWeather as CurrentWeatherType,
   WeatherForecast,
 } from "./types/weather";
-import UnitToggle, { type TemperatureUnit } from "./components/UnitToggle";
 
 import {
   getSavedTemperatureUnit,
@@ -38,6 +38,20 @@ function App() {
 
   const [error, setError] = useState("");
 
+  const [unit, setUnit] = useState<TemperatureUnit>("celsius");
+
+  /**
+   * Load saved temperature unit from localStorage
+   */
+  useEffect(() => {
+    const savedUnit = getSavedTemperatureUnit();
+
+    setUnit(savedUnit);
+  }, []);
+
+  /**
+   * Load weather by city
+   */
   const loadWeather = async (cityName: string) => {
     if (!cityName.trim()) return;
 
@@ -66,12 +80,24 @@ function App() {
     }
   };
 
+  /**
+   * Search weather by city
+   */
   const searchWeather = () => {
     loadWeather(city);
   };
-  // const [unit, setUnit] = useState<TemperatureUnit>("celsius");
-  const [unit, setUnit] = useState<TemperatureUnit>("celsius");
 
+  /**
+   * Change temperature unit and save it
+   */
+  const changeTemperatureUnit = (newUnit: TemperatureUnit) => {
+    setUnit(newUnit);
+    saveTemperatureUnit(newUnit);
+  };
+
+  /**
+   * Get weather by user's location
+   */
   const getUserLocation = () => {
     if (!navigator.geolocation) {
       setError("Ваш браузер не підтримує визначення геолокації.");
@@ -134,17 +160,15 @@ function App() {
     );
   };
 
-  useEffect(() => {
-    const savedUnit = getSavedTemperatureUnit();
-
-    setUnit(savedUnit);
-  }, []);
-
+  /**
+   * Load default weather
+   */
   useEffect(() => {
     const loadDefaultWeather = async () => {
-      try {
-        setLoading(true);
+      setLoading(true);
+      setError("");
 
+      try {
         const [currentWeather, weatherForecast] = await Promise.all([
           getCurrentWeather("Kyiv"),
           getWeatherForecast("Kyiv"),
@@ -154,6 +178,9 @@ function App() {
         setForecast(weatherForecast);
       } catch (error) {
         console.error(error);
+
+        setWeather(null);
+        setForecast(null);
 
         setError("Не вдалося завантажити погоду. Спробуй ще раз.");
       } finally {
@@ -171,16 +198,9 @@ function App() {
 
         <LocationButton onClick={getUserLocation} loading={locationLoading} />
 
-        {/* <UnitToggle unit={unit} onChange={setUnit} /> */}
-        {/* <UnitToggle
-          unit={unit}
-          onChange={(newUnit) => {
-            setUnit(newUnit);
-            saveTemperatureUnit(newUnit);
-          }}
-        /> */}
         <UnitToggle unit={unit} onChange={changeTemperatureUnit} />
       </div>
+
       {loading && <Loader />}
 
       {!loading && error && (
