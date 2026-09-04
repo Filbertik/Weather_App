@@ -172,13 +172,14 @@ function App() {
         <LocationButton onClick={getUserLocation} loading={locationLoading} />
 
         {/* <UnitToggle unit={unit} onChange={setUnit} /> */}
-        <UnitToggle
+        {/* <UnitToggle
           unit={unit}
           onChange={(newUnit) => {
             setUnit(newUnit);
             saveTemperatureUnit(newUnit);
           }}
-        />
+        /> */}
+        <UnitToggle unit={unit} onChange={changeTemperatureUnit} />
       </div>
       {loading && <Loader />}
 
