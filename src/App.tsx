@@ -69,6 +69,7 @@ function App() {
   const searchWeather = () => {
     loadWeather(city);
   };
+  // const [unit, setUnit] = useState<TemperatureUnit>("celsius");
   const [unit, setUnit] = useState<TemperatureUnit>("celsius");
 
   const getUserLocation = () => {
