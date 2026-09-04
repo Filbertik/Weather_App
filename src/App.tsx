@@ -20,6 +20,11 @@ import type {
 } from "./types/weather";
 import UnitToggle, { type TemperatureUnit } from "./components/UnitToggle";
 
+import {
+  getSavedTemperatureUnit,
+  saveTemperatureUnit,
+} from "./utils/temperatureStorage";
+
 function App() {
   const [city, setCity] = useState("Kyiv");
 
