@@ -6,7 +6,7 @@ import Forecast from "./components/Forecast";
 import Loader from "./components/Loader";
 import ErrorMessage from "./components/ErrorMessage";
 import LocationButton from "./components/LocationButton";
-import UnitToggle, { type TemperatureUnit } from "./components/UnitToggle";
+import UnitToggle from "./components/UnitToggle";
 
 import {
   getCurrentWeather,
@@ -20,10 +20,7 @@ import type {
   WeatherForecast,
 } from "./types/weather";
 
-import {
-  getSavedTemperatureUnit,
-  saveTemperatureUnit,
-} from "./utils/temperatureStorage";
+import useTemperatureUnit from "./hooks/useTemperatureUnit";
 
 function App() {
   const [city, setCity] = useState("Kyiv");
@@ -38,16 +35,7 @@ function App() {
 
   const [error, setError] = useState("");
 
-  const [unit, setUnit] = useState<TemperatureUnit>("celsius");
-
-  /**
-   * Load saved temperature unit from localStorage
-   */
-  useEffect(() => {
-    const savedUnit = getSavedTemperatureUnit();
-
-    setUnit(savedUnit);
-  }, []);
+  const { unit, changeUnit } = useTemperatureUnit();
 
   /**
    * Load weather by city
@@ -85,14 +73,6 @@ function App() {
    */
   const searchWeather = () => {
     loadWeather(city);
-  };
-
-  /**
-   * Change temperature unit and save it
-   */
-  const changeTemperatureUnit = (newUnit: TemperatureUnit) => {
-    setUnit(newUnit);
-    saveTemperatureUnit(newUnit);
   };
 
   /**
@@ -198,7 +178,7 @@ function App() {
 
         <LocationButton onClick={getUserLocation} loading={locationLoading} />
 
-        <UnitToggle unit={unit} onChange={changeTemperatureUnit} />
+        <UnitToggle unit={unit} onChange={changeUnit} />
       </div>
 
       {loading && <Loader />}
